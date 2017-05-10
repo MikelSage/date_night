@@ -7,6 +7,7 @@ class Node
     @data = {title => score}
     @left_child = nil
     @right_child = nil
+    @sorted = []
   end
 
   def insert(score, title)
@@ -59,5 +60,33 @@ class Node
         1 + right_child.depth_of(num) unless right_child.depth_of(num).nil?
       end
     end
+  end
+
+  def max
+    if right_child
+      right_child.max
+    else
+      @data
+    end
+  end
+
+  def min
+    if left_child
+      left_child.min
+    else
+      @data
+    end
+  end
+
+  def sort
+		if left_child
+			@sorted << left_child.sort
+    end
+		@sorted << data
+		if right_child
+			@sorted << right_child.sort
+    end
+
+    @sorted.flatten
   end
 end

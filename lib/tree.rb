@@ -27,4 +27,30 @@ class Tree
       @root.depth_of(num)
     end
   end
+
+  def max
+    if @root
+      @root.max
+    end
+  end
+
+  def min
+    if @root
+      @root.min
+    end
+  end
+
+  def sort
+    if @root
+      @root.sort
+    end
+  end
 end
+
+# tree = Tree.new
+#
+# tree.insert(50, 'Title')
+# tree.insert(75, 'Title2')
+# tree.insert(25, 'Title3')
+#
+# p tree.sort

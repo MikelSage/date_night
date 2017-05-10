@@ -148,4 +148,139 @@ class TreeTest < Minitest::Test
     assert_nil tree.depth_of(13)
     assert_nil tree.depth_of(80)
   end
+
+  def test_max_with_no_nodes_is_nil
+    tree = Tree.new
+
+    assert_nil tree.max
+  end
+
+  def test_max_with_root_only
+    tree = Tree.new
+    test_data = {'Title' => 50}
+
+    tree.insert(50, 'Title')
+
+    assert_equal test_data, tree.max
+  end
+
+  def test_max_with_two_nodes
+    tree = Tree.new
+    test_max = {'Title2' => 75}
+
+    tree.insert(50, 'Title')
+    tree.insert(75, 'Title2')
+
+    assert_equal test_max, tree.max
+  end
+
+  def test_max_with_more_nodes
+    tree = Tree.new
+    test_max = {'Title8' => 95}
+
+    tree.insert(50, 'Title')
+    tree.insert(75, 'Title2')
+    tree.insert(25, 'Title3')
+    tree.insert(12, 'Title4')
+    tree.insert(35, 'Title5')
+    tree.insert(65, 'Title6')
+    tree.insert(6, 'Title7')
+    tree.insert(95, 'Title8')
+
+    assert_equal test_max, tree.max
+  end
+
+  def test_min_with_no_nodes_is_nil
+    tree = Tree.new
+
+    assert_nil tree.min
+  end
+
+  def test_min_with_root_only
+    tree = Tree.new
+    test_min = {'Title' => 50}
+
+    tree.insert(50, 'Title')
+
+    assert_equal test_min, tree.min
+  end
+
+  def test_min_with_two_nodes
+    tree = Tree.new
+    test_min = {'Title2' => 25}
+
+    tree.insert(50, 'Title')
+    tree.insert(25, 'Title2')
+
+    assert_equal test_min, tree.min
+  end
+
+  def test_min_with_more_nodes
+    tree = Tree.new
+    test_min = {'Title7' => 6}
+
+    tree.insert(50, 'Title')
+    tree.insert(75, 'Title2')
+    tree.insert(25, 'Title3')
+    tree.insert(12, 'Title4')
+    tree.insert(35, 'Title5')
+    tree.insert(65, 'Title6')
+    tree.insert(6, 'Title7')
+    tree.insert(95, 'Title8')
+
+    assert_equal test_min, tree.min
+  end
+
+  def test_sort_with_empty_tree_returns_nil
+    tree = Tree.new
+
+    assert_nil tree.sort
+  end
+
+  def test_sort_with_root_only
+    tree = Tree.new
+
+    tree.insert(50, 'Title')
+
+    assert_equal [{'Title' => 50}], tree.sort
+  end
+
+  def test_sort_with_depth_of_one
+    tree = Tree.new
+
+    tree.insert(50, 'Title')
+    tree.insert(75, 'Title2')
+    tree.insert(25, 'Title3')
+
+    assert_equal [{'Title3' => 25}, {'Title' => 50}, {'Title2' => 75}], tree.sort
+  end
+
+
+  def test_sort_with_more_depth
+    tree = Tree.new
+
+    tree.insert(50, 'Title')
+    tree.insert(75, 'Title2')
+    tree.insert(25, 'Title3')
+    tree.insert(12, 'Title4')
+    tree.insert(30, 'Title5')
+    tree.insert(60, 'Title6')
+    tree.insert(90, 'Title7')
+    tree.insert(6, 'Title8')
+    tree.insert(100, 'Title9')
+
+    sorted_test =[
+      {'Title8' => 6},
+      {'Title4' => 12},
+      {'Title3' => 25},
+      {'Title5' => 30},
+      {'Title' => 50},
+      {'Title6' => 60},
+      {'Title2' => 75},
+      {'Title7' => 90},
+      {'Title9' => 100}
+    ]
+
+    assert_equal sorted_test, tree.sort
+  end
 end
