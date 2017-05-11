@@ -20,6 +20,11 @@ class Node
     end
   end
 
+  def new_child(child, score, title)
+    child = Node.new(score, title)
+    1
+  end
+
   def include?(num)
     if num == @data[@title]
       true
@@ -34,10 +39,14 @@ class Node
     if num == @data[@title]
       0
     elsif num < @data[@title]
-      1 + left_child.depth_of(num) if left_child && !left_child.depth_of(num).nil?
+      1 + left_child.depth_of(num) if depth_not_nil?(left_child, num)
     elsif num > @data[@title]
-      1 + right_child.depth_of(num) if right_child && !right_child.depth_of(num).nil?
+      1 + right_child.depth_of(num) if depth_not_nil?(right_child, num)
     end
+  end
+
+  def depth_not_nil?(child, num)
+    child && !child.depth_of(num).nil?
   end
 
   def max
