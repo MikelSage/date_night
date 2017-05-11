@@ -20,11 +20,6 @@ class Node
     end
   end
 
-  def new_child(child, score, title)
-    child = Node.new(score, title)
-    1
-  end
-
   def include?(num)
     if num == @data[@title]
       true
