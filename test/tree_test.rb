@@ -258,17 +258,6 @@ class TreeTest < Minitest::Test
 
   def test_sort_with_more_depth
     tree = Tree.new
-
-    tree.insert(50, 'Title')
-    tree.insert(75, 'Title2')
-    tree.insert(25, 'Title3')
-    tree.insert(12, 'Title4')
-    tree.insert(30, 'Title5')
-    tree.insert(60, 'Title6')
-    tree.insert(90, 'Title7')
-    tree.insert(6, 'Title8')
-    tree.insert(100, 'Title9')
-
     sorted_test =[
       {'Title8' => 6},
       {'Title4' => 12},
@@ -280,6 +269,57 @@ class TreeTest < Minitest::Test
       {'Title7' => 90},
       {'Title9' => 100}
     ]
+
+    tree.insert(50, 'Title')
+    tree.insert(75, 'Title2')
+    tree.insert(25, 'Title3')
+    tree.insert(12, 'Title4')
+    tree.insert(30, 'Title5')
+    tree.insert(60, 'Title6')
+    tree.insert(90, 'Title7')
+    tree.insert(6, 'Title8')
+    tree.insert(100, 'Title9')
+
+    assert_equal sorted_test, tree.sort
+  end
+
+  def test_load_with_one_entry
+    tree = Tree.new
+    test_data = {'Title' => 50}
+
+    tree.load('test/one_entry_test.txt')
+
+    assert_equal test_data, tree.root.data
+  end
+
+  def test_load_with_two_entries
+    tree = Tree.new
+    test_root_data = {'Title' => 50}
+    test_left_data = {'Title2' => 25}
+
+    tree.load('test/two_entry_test.txt')
+
+    assert_equal test_root_data, tree.root.data
+    assert_equal test_left_data, tree.root.left_child.data
+  end
+
+  def test_load_with_more_entries
+    tree = Tree.new
+    test_scores = [34, 63, 22, 84, 41, 10]
+    sorted_test =[
+      {'I Love You Phillip Morris' => 10},
+      {'Experimenter' => 22},
+      {'Hannibal Buress: Comedy Camisado' => 34},
+      {'Love' => 41},
+      {'Meet My Valentine' => 63},
+      {'French Dirty' => 84}
+    ]
+
+    tree.load('test/multiple_entries_test.txt')
+
+    test_scores.each do |score|
+      assert tree.include?(score)
+    end
 
     assert_equal sorted_test, tree.sort
   end

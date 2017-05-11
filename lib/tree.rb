@@ -8,49 +8,35 @@ class Tree
   end
 
   def insert(score, title)
-    if @root
-      @root.insert(score, title)
-    else
-      @root = Node.new(score, title)
-      0
-    end
+    @root ? @root.insert(score, title) : (@root = Node.new(score, title); 0)
   end
 
   def include?(num)
-    if @root
-      @root.include?(num)
-    end
+    @root.include?(num) if @root
   end
 
   def depth_of(num)
-    if @root
-      @root.depth_of(num)
-    end
+    @root.depth_of(num) if @root
   end
 
   def max
-    if @root
-      @root.max
-    end
+    @root.max if @root
   end
 
   def min
-    if @root
-      @root.min
-    end
+    @root.min if @root
   end
 
   def sort
-    if @root
-      @root.sort
+    @root.sort if @root
+  end
+
+  def load(filename)
+    file_to_load = File.open(filename, 'r')
+
+    file_to_load.each do |line|
+      split_data = line.split
+      insert(split_data[0].to_i, split_data[1..-1].join(' '))
     end
   end
 end
-
-# tree = Tree.new
-#
-# tree.insert(50, 'Title')
-# tree.insert(75, 'Title2')
-# tree.insert(25, 'Title3')
-#
-# p tree.sort
